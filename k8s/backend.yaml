@@ -1,15 +1,31 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
+metadata:
+  name: backend
 spec:
-    template:
-        metadata:
-            labels:
-                app: backend
-        spec:
-            containers:
-                - name: backend
-                  # 여러분의 image 주소를 입력해주세요.
-                  image: krmp-d2hub-idock.9rum.cc/dev-test/repo_44bef8cfd20c
-                  imagePullPolicy: Always
-                  ports:
-                      - containerPort: 8080
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+    # 여러분의 image 주소를 입력해주세요.
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_44bef8cfd20c
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 8080
+      targetPort: 8080
