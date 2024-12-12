@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql
+  name: mariadb
 spec:
-  serviceName: mysql
+  serviceName: mariadb
   selector:
     matchLabels:
-      app: mysql
+      app: mariadb
   template:
     metadata:
       labels:
-        app: mysql
+        app: mariadb
     spec:
       containers:
-        - name: mysql
-          # 여러분의 mysql image 주소를 입력해주세요.
-          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_9d4d3ed3e7e1
+        - name: mariadb
+          # 여러분의 mariadb image 주소를 입력해주세요.
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_e6637361a69f
           env:
             - name: TZ
               value: Asia/Seoul
@@ -55,11 +55,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mariadb
 spec:
   type: ClusterIP
   clusterIP: None # Headless
   selector:
-    app: mysql
+    app: mariadb
   ports:
     - port: 3306
